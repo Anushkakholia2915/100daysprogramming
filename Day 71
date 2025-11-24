@@ -1,23 +1,27 @@
-Q122: Write a C program that opens an existing file (e.g., info.txt) and reads its contents using fgets(). The program should print all the lines to the console until EOF (end of file) is reached.
-
-#include <stdio.h>
+Q121: Write a C program that creates a text file named info.txt in write mode. The program should take the user’s name and age as input, and write them to the file using fprintf(). After writing, display a message confirming that the data was successfully saved.
 
 int main() {
     FILE *fp;
-    char line[200];  
+    char name[50];
+    int age;
 
-    fp = fopen("info.txt", "r");
+    fp = fopen("info.txt", "w");
 
     if (fp == NULL) {
-        printf("Error: Unable to open file!\n");
-        return 1;
+        printf("Error opening file!\n");
+        return 1; 
     }
 
-    while (fgets(line, sizeof(line), fp) != NULL) {
-        printf("%s", line);
-    }
+    printf("Enter your name: ");
+    fgets(name, sizeof(name), stdin); 
+    printf("Enter your age: ");
+    scanf("%d", &age);
+
+    fprintf(fp, "Name: %sAge: %d\n", name, age);
 
     fclose(fp);
+
+    printf("File created successfully! Data written to info.txt\n");
 
     return 0;
 }
